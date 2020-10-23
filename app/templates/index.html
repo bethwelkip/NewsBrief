@@ -1,4 +1,15 @@
-<h1>{{title}}</h1>
-% for source in sources%
-<h3>{{sources[0].name}}</h3>
-%endfor%
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
+
+{% block styles%}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='./index.css')}}">
+{% endblock %}
+
+{% block content %}
+<!-- <h1 class="title">{{title}}</h1> -->
+<ul>
+    {{macro.displaySources(sources)}}
+</ul>
+
+{% endblock %}
