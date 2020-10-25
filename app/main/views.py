@@ -1,11 +1,13 @@
-from flask import render_template
+from flask import render_template, request, url_for, redirect
+from . import main
+from ..request import  get_sources, get_articles
 
-from app import app
-from .request import get_sources
-from .request import get_articles
+# from app import app
+# from .request import get_sources
+# from .request import get_articles
 
 # home page
-@app.route('/')
+@main.route('/')
 def index():
 
      '''
@@ -19,7 +21,7 @@ def index():
 
 
 #articles
-@app.route('/articles/<names>')
+@main.route('/articles/<names>')
 def articles(names):
      '''
      View root page function that returns the index page and its data

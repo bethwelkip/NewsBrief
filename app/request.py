@@ -1,16 +1,27 @@
-from app import app
+# from app import app
 import urllib.request, json
-from .sourcemodel import source
-from .articlemodel import article
-Article = article.Article
-Source = source.Source
-api_key = app.config['API_KEY']
-base_url = app.config['BASE_URL_SOURCES']
-article_url = app.config['BASE_URL_ARTICLES']
+from .models import Source, Article
+# from .models import Article
+# Article = article.Article
+# Source = source.Source
+api_key = None
+base_url = None
+article_url = None
+def configure_request(app):
+    global api_key, base_url , article_url
+    api_key = app.config['API_KEY']
+    print("##################################",api_key)
+    print("##################################",api_key)
+    base_url = app.config['BASE_URL_SOURCES']
+    print("##################################",base_url)
+    article_url = app.config['BASE_URL_ARTICLES']
+    print("##################################",article_url)
 
 def get_sources():
+    # configure_request(app)
+    print("##################################",api_key)
     the_url = base_url.format(api_key)
-
+    print("*************************************",the_url)
     with urllib.request.urlopen(the_url) as url:
         sources_data = url.read()
         sources_response = json.loads(sources_data)
@@ -42,6 +53,7 @@ def process_results(sources_list):
     return source_results
 
 def get_articles(source):
+    # configure_request(app)
     the_url = article_url.format(source,api_key)
     with urllib.request.urlopen(the_url) as url:
         articles_data = url.read()
